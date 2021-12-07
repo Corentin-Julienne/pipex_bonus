@@ -6,11 +6,11 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:40:38 by cjulienn          #+#    #+#             */
-/*   Updated: 2021/12/07 11:20:05 by cjulienn         ###   ########.fr       */
+/*   Updated: 2021/12/06 16:08:25 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "./bonus.h"
 
 void	init_struct(t_vars *vars, char **av, char **env)
 {

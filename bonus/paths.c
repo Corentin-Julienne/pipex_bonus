@@ -6,11 +6,11 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:55:15 by cjulienn          #+#    #+#             */
-/*   Updated: 2021/12/07 11:28:00 by cjulienn         ###   ########.fr       */
+/*   Updated: 2021/12/07 11:31:57 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "./bonus.h"
 
 char	*join_cmd_to_path(t_vars *vars, char **cmd_args, int i)
 {

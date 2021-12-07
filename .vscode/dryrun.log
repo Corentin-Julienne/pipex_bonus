@@ -1,0 +1,100 @@
+make --dry-run --keep-going --print-directory
+make: Entering directory `/Users/corentin/code/19/pipex_bonus'
+gcc -Wall -Wextra -Werror -I./includes/   -c -o srcs/errors.o srcs/errors.c
+ 
+gcc -Wall -Wextra -Werror -I./includes/   -c -o srcs/free.o srcs/free.c
+gcc -Wall -Wextra -Werror -I./includes/   -c -o srcs/init_structs.o srcs/init_structs.c
+gcc -Wall -Wextra -Werror -I./includes/   -c -o srcs/paths.o srcs/paths.c
+gcc -Wall -Wextra -Werror -I./includes/   -c -o srcs/pipes.o srcs/pipes.c
+gcc -Wall -Wextra -Werror -I./includes/   -c -o srcs/pipex.o srcs/pipex.c
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -C ./libft/
+ 
+make[1]: Entering directory `/Users/corentin/code/19/pipex_bonus/libft'
+gcc -Wall -Wextra -Werror -I.   -c -o get_next_line.o get_next_line.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o gnl_utils/gnl_utils.o gnl_utils/gnl_utils.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_printf.o ft_printf.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o printf_utils/conversions_1.o printf_utils/conversions_1.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o printf_utils/conversions_2.o printf_utils/conversions_2.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_atoi.o ft_atoi.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_bzero.o ft_bzero.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_calloc.o ft_calloc.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_free_and_return.o ft_free_and_return.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_intlen_base.o ft_intlen_base.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_isalnum.o ft_isalnum.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_isalpha.o ft_isalpha.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_isascii.o ft_isascii.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_isdigit.o ft_isdigit.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_isprint.o ft_isprint.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_itoa.o ft_itoa.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lltoa.o ft_lltoa.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_memccpy.o ft_memccpy.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_memchr.o ft_memchr.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_memcmp.o ft_memcmp.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_memcpy.o ft_memcpy.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_memmove.o ft_memmove.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_memset.o ft_memset.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_protec_strdup.o ft_protec_strdup.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_putchar_fd.o ft_putchar_fd.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_putendl_fd.o ft_putendl_fd.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_putlnbr_base.o ft_putlnbr_base.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_putlnbr_fd.o ft_putlnbr_fd.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_putnbr_fd.o ft_putnbr_fd.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_putstr_fd.o ft_putstr_fd.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_split.o ft_split.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strchr.o ft_strchr.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strdup.o ft_strdup.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strjoin_and_free.o ft_strjoin_and_free.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strjoin.o ft_strjoin.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strlcat.o ft_strlcat.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strlcpy.o ft_strlcpy.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strlen.o ft_strlen.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strmapi.o ft_strmapi.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strncmp.o ft_strncmp.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strnstr.o ft_strnstr.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strtrim.o ft_strtrim.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_strrchr.o ft_strrchr.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_substr.o ft_substr.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_tolower.o ft_tolower.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_toupper.o ft_toupper.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lstadd_back.o ft_lstadd_back.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lstadd_front.o ft_lstadd_front.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lstnew.o ft_lstnew.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lstsize.o ft_lstsize.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lstlast.o ft_lstlast.c
+ 
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lstdelone.o ft_lstdelone.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lstclear.o ft_lstclear.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lstiter.o ft_lstiter.c
+gcc -Wall -Wextra -Werror -I.   -c -o ft_lstmap.o ft_lstmap.c
+ar -rc libft.a ./get_next_line.o ./gnl_utils/gnl_utils.o ./ft_printf.o ./printf_utils/conversions_1.o ./printf_utils/conversions_2.o ./ft_atoi.o ./ft_bzero.o ./ft_calloc.o ./ft_free_and_return.o ./ft_intlen_base.o ./ft_isalnum.o ./ft_isalpha.o ./ft_isascii.o ./ft_isdigit.o ./ft_isprint.o ./ft_itoa.o ./ft_lltoa.o ./ft_memccpy.o ./ft_memchr.o ./ft_memcmp.o ./ft_memcpy.o ./ft_memmove.o ./ft_memset.o ./ft_protec_strdup.o ./ft_putchar_fd.o ./ft_putendl_fd.o ./ft_putlnbr_base.o ./ft_putlnbr_fd.o ./ft_putnbr_fd.o ./ft_putstr_fd.o ./ft_split.o ./ft_strchr.o ./ft_strdup.o ./ft_strjoin_and_free.o ./ft_strjoin.o ./ft_strlcat.o ./ft_strlcpy.o ./ft_strlen.o ./ft_strmapi.o ./ft_strncmp.o ./ft_strnstr.o ./ft_strtrim.o ./ft_strrchr.o ./ft_substr.o ./ft_tolower.o ./ft_toupper.o ./ft_lstadd_back.o ./ft_lstadd_front.o ./ft_lstnew.o ./ft_lstsize.o ./ft_lstlast.o ./ft_lstdelone.o ./ft_lstclear.o ./ft_lstiter.o ./ft_lstmap.o
+ranlib libft.a
+echo libft.a successfully made !!!
+make[1]: Leaving directory `/Users/corentin/code/19/pipex_bonus/libft'
+ 
+cp ./libft/libft.a .
+gcc -Wall -Wextra -Werror -I./includes/ ./srcs/errors.o ./srcs/free.o ./srcs/init_structs.o ./srcs/paths.o ./srcs/pipes.o ./srcs/pipex.o -L. -lft -o pipex
+echo pipex successfully made !!!
+ 
+make: Leaving directory `/Users/corentin/code/19/pipex_bonus'
+ 
