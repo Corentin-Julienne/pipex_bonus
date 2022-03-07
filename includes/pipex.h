@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2021/12/07 11:35:51 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/07 10:23:06 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ typedef struct s_vars
 	char	**env;
 	char	**paths;
 	char	**new_paths;
+	int		fd_in;
+	int		fd_out;
 }			t_vars;
 
 /* errors.c */
@@ -41,6 +43,8 @@ void	handle_malloc_errors(void);
 /* free.c */
 
 void	free_split(char **split);
+void	free_problem_split(char **split, int i);
+void	close_in_and_out(int fd_in, int fd_out);
 
 /* init_struct.c */
 
@@ -54,13 +58,13 @@ char	**recup_paths(t_vars *vars);
 
 /* pipes.c */
 
-void	parent_process(pid_t pid, int *pipe_arr);
-void	child_process(t_vars *vars, int *pipe_arr, char *cmd);
+int		parent_process(t_vars *vars, pid_t pid, int *pipe_arr);
+int		child_process(t_vars *vars, int *pipe_arr, char *cmd);
 void	redirection(t_vars *vars, char *cmd);
 
 /* pipex.c */
 
-void	cmd_exec(t_vars *vars, char *cmd);
+int		cmd_exec(t_vars *vars, char *cmd);
 int		file_opener(char *file, int type);
 void	pipex(int fd_in, int fd_out, t_vars *vars, int ac);
 
