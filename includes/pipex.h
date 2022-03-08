@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/07 10:23:06 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:57:27 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define IN		0
 # define OUT	1
 
+# define FIRST	0
+# define SECOND	1
+
 typedef struct s_vars
 {
 	int		i;
@@ -32,16 +35,17 @@ typedef struct s_vars
 	char	**new_paths;
 	int		fd_in;
 	int		fd_out;
+	int		*pipes;
+	pid_t	*pids_arr;		
 }			t_vars;
 
 /* errors.c */
 
-void	handle_fd_errors(int fd_num);
-void	handle_errors(char *error_type);
-void	handle_malloc_errors(void);
+void	display_err_msg(char *err_msg);
 
 /* free.c */
 
+void	cleaner(t_vars *vars, char *err);
 void	free_split(char **split);
 void	free_problem_split(char **split, int i);
 void	close_in_and_out(int fd_in, int fd_out);
@@ -58,14 +62,15 @@ char	**recup_paths(t_vars *vars);
 
 /* pipes.c */
 
-int		parent_process(t_vars *vars, pid_t pid, int *pipe_arr);
-int		child_process(t_vars *vars, int *pipe_arr, char *cmd);
-void	redirection(t_vars *vars, char *cmd);
+void	pipes_activation(t_vars *vars, int num_pipes);
+int		child_process(t_vars *vars, char *cmd, int iter, int cp_num);
+void	redirection(t_vars *vars, char *cmd, int iter);
 
 /* pipex.c */
 
 int		cmd_exec(t_vars *vars, char *cmd);
+int		handle_fds(t_vars *vars);
 int		file_opener(char *file, int type);
-void	pipex(int fd_in, int fd_out, t_vars *vars, int ac);
+void	pipex(t_vars *vars);
 
 #endif

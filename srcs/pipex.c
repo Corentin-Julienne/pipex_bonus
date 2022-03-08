@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/07 10:49:21 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:56:40 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	cmd_exec(t_vars *vars, char *cmd)
 	{
 		free(vars);
 		free(vars->new_paths);
-		handle_malloc_errors();
+		display_err_msg("malloc alloc failure");
 		return (1);
 	}
 	vars->i = 0;
@@ -40,69 +40,58 @@ int	cmd_exec(t_vars *vars, char *cmd)
 }
 
 int	file_opener(char *file, int type)
-{
-	int		fd_in;
-	int		fd_out;
-	
+{	
 	if (type == IN)
 	{
 		if (access(file, F_OK) != 0)
 		{
-			perror("pipex ");
+			perror("pipex: ");
 			exit(EXIT_FAILURE);
 		}
-		fd_in = open(file, O_RDONLY);
-		return (fd_in);
+		return (open(file, O_RDONLY));
 	}
 	else
-	{
-		fd_out = open(file, O_RDWR | O_CREAT | O_TRUNC, 0644);
-		return (fd_out);
-	}
+		return (open(file, O_RDWR | O_CREAT | O_TRUNC, 0644));
 }
 
-void	pipex(int fd_in, int fd_out, t_vars *vars, int ac)
+void	pipex(t_vars *vars)
 {
-	if (dup2(fd_in, STDIN_FILENO) == -1 || dup2(fd_out, STDOUT_FILENO) == -1)
-	{
-		free(vars->new_paths);
-		close_in_and_out(vars->fd_in, vars->fd_out);
-		free(vars);
-		handle_errors("dup2");
-	}
-	vars->fd_in = STDIN_FILENO;
-	vars->fd_out = STDOUT_FILENO;
-	redirection(vars, vars->av[2]);
+	if (dup2(vars->fd_in, STDIN_FILENO) == -1
+		 || dup2(vars->fd_out, STDOUT_FILENO) == -1)
+		cleaner(vars, "dup");
+	vars->pipes = (int *)malloc(sizeof(int) * 2);
+	if (!vars->pipes)
+		cleaner(vars, "pipes array init");
+	vars->pids_arr = (pid_t *)malloc(sizeof(pid_t) * 2);
+	if (!vars->pids_arr)
+		cleaner(vars, "pids array init");
+	pipes_activation(vars, 1);
+	redirection(vars, vars->av[2], 0);
 	cmd_exec(vars, vars->av[3]);
-	close_in_and_out(vars->fd_in, vars->fd_out); // check if necessary
+	close_in_and_out(vars->fd_in, vars->fd_out);
 	free(vars->new_paths);
 	free(vars);
 }
 
-int	handle_fds(int ac, char **av, char **env, t_vars *vars)
+int	handle_fds(t_vars *vars)
 {
-	int		fd_in;
-	int		fd_out;
-
-	fd_in = file_opener(av[1], IN);
-	if (fd_in == -1)
+	vars->fd_in = file_opener(vars->av[1], IN);
+	if (vars->fd_in == -1)
 	{
 		free(vars->new_paths);
 		free(vars);
-		exit(EXIT_FAILURE);
+		display_err_msg("open");
 	}
-	fd_out = file_opener(av[4], OUT);
-	if (fd_out == -1)
+	vars->fd_out = file_opener(vars->av[4], OUT);
+	if (vars->fd_out == -1)
 	{
 		free(vars->new_paths);
 		free(vars);
-		if (close(fd_in) == -1)
-			handle_fd_errors(1);
+		if (close(vars->fd_in) == -1)
+			display_err_msg("close");
 		exit(EXIT_FAILURE);
 	}
-	vars->fd_in = fd_in;
-	vars->fd_out = fd_out;
-	pipex(fd_in, fd_out, vars, ac);
+	pipex(vars);
 	return (0);
 }
 
@@ -112,12 +101,12 @@ int	main(int ac, char **av, char **env)
 
 	if (ac != 5)
 	{
-		ft_putstr_fd("Error : Wrong number of arguments\n", 2);
+		ft_putstr_fd("Error : Wrong number of arguments\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (!vars)
-		handle_malloc_errors();
+		display_err_msg("malloc alloc failure");
 	init_struct(vars, av, env);
-	return (handle_fds(ac, av, env, vars));
+	return (handle_fds(vars));
 }

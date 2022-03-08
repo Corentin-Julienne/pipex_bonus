@@ -6,61 +6,65 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 10:55:41 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/07 10:21:10 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/08 14:54:14 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	parent_process(t_vars *vars, pid_t pid, int *pipe_arr)
+// void	pipes_destruction(t_vars *vars, int num_pipe)
+// {
+// 	// TODO
+// }
+
+void	pipes_activation(t_vars *vars, int num_pipes)
 {
-	int		error_code;
-	
-	error_code = 0;
-	if (close(pipe_arr[1]) == -1)
-		error_code = 1;
-	if (dup2(pipe_arr[0], STDIN_FILENO) == -1)
-		error_code = 1;
-	waitpid(pid, NULL, 0);
-	return (error_code);
+	int		i;
+
+	i = 0;
+	while (i < num_pipes)
+	{
+		if (pipe(vars->pipes + (i * 2)) == -1)
+			cleaner(vars, "pipes");
+		i++;
+	}
 }
 
-int	child_process(t_vars *vars, int *pipe_arr, char *cmd)
+int	child_process(t_vars *vars, char *cmd, int iter, int cp_num) // check if this works
 {
-	int		error_code;
-	
-	error_code = 0;
-	if (close(pipe_arr[0]) == -1)
-		error_code = 1;
-	if (dup2(pipe_arr[1], STDOUT_FILENO) == -1)
-		error_code = 1;
-	if (error_code != 0)
-		return (error_code);
-	cmd_exec(vars, cmd);
-}
-
-void	redirection(t_vars *vars, char *cmd)
-{
-	int		pipe_arr[2];
-	pid_t	pid;
-
-	if (pipe(pipe_arr) == -1)
+	if (cp_num == FIRST)
 	{
-		close_in_and_out(vars->fd_in, vars->fd_out);
-		free(vars);
-		free(vars->new_paths);
-		handle_errors("pipe");
+		if (close(vars->pipes[iter * 2]) == -1)
+			perror("pipex"); // clean
+		if (dup2(vars->pipes[(iter * 2) + 1], STDOUT_FILENO) == -1)
+			perror("pipex"); // clean
+		cmd_exec(vars, cmd);
 	}
-	pid = fork();
-	if (pid == -1)
-	{
-		close_in_and_out(vars->fd_in, vars->fd_out);
-		free(vars);
-		free(vars->new_paths);
-		handle_errors("fork");
-	}
-	if (pid == 0)
-		child_process(vars, pipe_arr, cmd);
 	else
-		parent_process(vars, pid, pipe_arr);
+	{
+		if (close(vars->pipes[(iter * 2) + 1]) == -1)
+			perror("pipex"); // clean
+		if (dup2(vars->pipes[iter * 2], STDIN_FILENO) == -1)
+			perror("pipex"); //clean
+	}
+	return (0); // check that
+}
+
+void	redirection(t_vars *vars, char *cmd, int iter)
+{
+	// spawn child 1
+	vars->pids_arr[iter * 2] = fork();
+	if (vars->pids_arr[iter * 2] == -1)
+		cleaner(vars, "fork");
+	if (vars->pids_arr[iter * 2] == 0)
+		child_process(vars, cmd, iter, FIRST);
+	// spawn child 2
+	vars->pids_arr[(iter * 2) + 1] = fork();
+	if (vars->pids_arr[(iter * 2) + 1] == -1)
+		cleaner(vars, "fork");
+	if (vars->pids_arr[(iter * 2) + 1] == 0)
+		child_process(vars, cmd, iter, SECOND);
+	// wait for both children to perform tasks
+	waitpid(vars->pids_arr[iter * 2], NULL, 0);
+	waitpid(vars->pids_arr[(iter * 2) + 1], NULL, 0);
 }

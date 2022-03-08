@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:55:15 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/07 10:53:51 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/08 10:57:25 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	handle_slashes_prbl(t_vars *vars, char **paths_v2)
 {
 	free_problem_split(paths_v2, vars->i);
 	free(vars);
-	handle_malloc_errors();
+	display_err_msg("malloc alloc failure");
 }
 
 static void	add_slashes(t_vars *vars, char **paths_v2)
@@ -46,7 +46,7 @@ char	**paths_with_slash(t_vars *vars)
 	if (!paths_v2)
 	{
 		free(vars);
-		handle_malloc_errors();
+		display_err_msg("malloc alloc failure");
 	}
 	vars->i = 0;
 	add_slashes(vars, paths_v2);
@@ -64,7 +64,7 @@ char	*join_cmd_to_path(t_vars *vars, char **cmd_args, int i) // check for leaks
 		return (cmd_args[0]);
 	path = ft_strjoin(vars->new_paths[i], cmd_args[0]);
 	if (!path)
-		handle_malloc_errors();
+		display_err_msg("malloc alloc failure");
 	return (path);
 }
 
@@ -90,7 +90,7 @@ char	**recup_paths(t_vars *vars)
 	if (!paths)
 	{
 		free(vars);
-		handle_malloc_errors();
+		display_err_msg("malloc alloc failure");
 	}
 	return (paths);
 }

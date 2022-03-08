@@ -6,31 +6,14 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/06 12:29:52 by cjulienn          #+#    #+#             */
-/*   Updated: 2021/12/07 11:26:24 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/08 10:55:44 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	handle_fd_errors(int fd_num)
+void	display_err_msg(char *err_msg)
 {
-	if (fd_num == 1)
-		ft_putstr_fd("pipex : Error : infile cannot be openned\n", 2);
-	else
-		ft_putstr_fd("pipex : Error : outfile cannot be openned\n", 2);
-	exit(EXIT_FAILURE);
-}
-
-void	handle_errors(char *error_type)
-{
-	ft_putstr_fd("there is a ", STDERR_FILENO);
-	ft_putstr_fd(error_type, STDERR_FILENO);
-	ft_putstr_fd(" error\n", STDERR_FILENO);
-	exit(EXIT_FAILURE);
-}
-
-void	handle_malloc_errors(void)
-{
-	ft_putstr_fd("pipex: Error : unsuccesful memory alloc\n", STDERR_FILENO);
+	perror(err_msg);
 	exit(EXIT_FAILURE);
 }
