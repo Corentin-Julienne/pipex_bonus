@@ -6,12 +6,12 @@
 #    By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/23 17:55:02 by cjulienn          #+#    #+#              #
-#    Updated: 2021/12/07 11:14:09 by cjulienn         ###   ########.fr        #
+#    Updated: 2022/03/09 12:53:23 by cjulienn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-BONUS_NAME = pipex
+BONUS_NAME = pipex_bonus
 
 SRCS = ./srcs/errors.c \
 	   ./srcs/free.c \
@@ -20,10 +20,10 @@ SRCS = ./srcs/errors.c \
 	   ./srcs/pipes.c \
 	   ./srcs/pipex.c
 
-BONUS_SRCS = ./bonus/bonus.c \
+BONUS_SRCS = ./bonus/pipex.c \
 			 ./bonus/errors.c \
 			 ./bonus/free.c \
-			 ./bonus/init_struct.c \
+			 ./bonus/init_structs.c \
 			 ./bonus/paths.c \
 			 ./bonus/pipes.c
 

@@ -6,11 +6,11 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/08 19:01:10 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:50:49 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/pipex.h"
+#include "../includes/pipex_bonus.h"
 
 int	cmd_exec(t_vars *vars, char *cmd)
 {
@@ -54,22 +54,26 @@ void	file_opener(t_vars *vars, int type)
 		vars->fd_out = open(vars->av[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
 }
 
-void	pipex(t_vars *vars)
+void	pipex(t_vars *vars) // modified
 {
-	vars->pipes = (int *)malloc(sizeof(int) * 2);
+	int			i;
+	
+	vars->pipes = (int **)malloc(sizeof(int *) * vars->num_of_pipes);
 	if (!vars->pipes)
 		cleaner(vars, "pipes array init");
-	vars->pids_arr = (pid_t *)malloc(sizeof(pid_t) * 2);
-	if (!vars->pids_arr)
-		cleaner(vars, "pids array init");
-	pipes_activation(vars, 1);
-	redirection(vars, 0);
-	close_in_and_out(vars->fd_in, vars->fd_out);
+	pipes_activation(vars, vars->num_of_pipes);
+	i = 0;
+	while (i < vars->num_of_pipes)
+	{
+		redirection(vars, vars->av[i + 2], i);
+		i++;
+	}	
+	// close_in_and_out(vars->fd_in, vars->fd_out);
 	free(vars->new_paths);
 	free(vars);
 }
 
-int	handle_fds(t_vars *vars)
+int	handle_fds(t_vars *vars) // is the same
 {
 	file_opener(vars, IN);
 	if (vars->fd_in == -1)
@@ -91,18 +95,19 @@ int	handle_fds(t_vars *vars)
 	return (0);
 }
 
-int	main(int ac, char **av, char **env)
+int	main(int ac, char **av, char **env) // modified
 {
 	t_vars	*vars;
 
-	if (ac != 5)
+	if (ac < 5)
 	{
-		ft_putstr_fd("Error : Wrong number of arguments\n", STDERR_FILENO);
+		ft_putstr_fd("Error : not enough arguments\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}
 	vars = (t_vars *)malloc(sizeof(t_vars));
 	if (!vars)
 		display_err_msg("malloc alloc failure");
 	init_struct(vars, av, env);
+	vars->num_of_pipes = ac - 4;
 	return (handle_fds(vars));
 }
