@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:55:15 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/08 19:20:40 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:39:57 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,6 @@ char	**paths_with_slash(t_vars *vars)
 	add_slashes(vars, paths_v2);
 	free_split(vars->paths);
 	return (paths_v2);
-}
-
-char	*join_cmd_to_path(t_vars *vars, char **cmd_args, int i) // check for leaks
-{
-	char	*path;
-	char	*cmd_slash;
-
-	cmd_slash = ft_strchr(cmd_args[0], '/');
-	if (cmd_slash && cmd_slash[0] == '/')
-		return (cmd_args[0]);
-	path = ft_strjoin(vars->new_paths[i], cmd_args[0]);
-	if (!path)
-		display_err_msg("malloc alloc failure");
-	return (path);
 }
 
 char	**recup_paths(t_vars *vars)

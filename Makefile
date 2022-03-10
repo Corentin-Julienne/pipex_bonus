@@ -6,7 +6,7 @@
 #    By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/23 17:55:02 by cjulienn          #+#    #+#              #
-#    Updated: 2022/03/09 12:53:23 by cjulienn         ###   ########.fr        #
+#    Updated: 2022/03/10 16:30:36 by cjulienn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,11 +21,14 @@ SRCS = ./srcs/errors.c \
 	   ./srcs/pipex.c
 
 BONUS_SRCS = ./bonus/pipex.c \
+			 ./bonus/child_process.c \
 			 ./bonus/errors.c \
+			 ./bonus/exec.c \
 			 ./bonus/free.c \
 			 ./bonus/init_structs.c \
 			 ./bonus/paths.c \
-			 ./bonus/pipes.c
+			 ./bonus/pipes.c \
+			 ./bonus/redir.c
 
 OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)

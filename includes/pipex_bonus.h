@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/09 12:52:21 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/10 18:00:37 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "../libft/libft.h"
 # include <stdio.h>
 # include <unistd.h>
+# include <sys/types.h>
 # include <stdlib.h>
 # include <fcntl.h>
 # include <string.h>
@@ -32,9 +33,11 @@ typedef struct s_vars
 	char	**new_paths;
 	int		fd_in;
 	int		fd_out;
-	int		**pipes;
-	pid_t	pids;
+	int		*pipes;
+	pid_t	*pids;
 	int		num_of_pipes;
+	int		num_cmds;
+	int		cmds_used;
 }			t_vars;
 
 /* errors.c */
@@ -54,13 +57,13 @@ void	init_struct(t_vars *vars, char **av, char **env);
 
 /* paths.c */
 
-char	*join_cmd_to_path(t_vars *vars, char **cmd_args, int i);
 char	**paths_with_slash(t_vars *vars);
 char	**recup_paths(t_vars *vars);
 
 /* pipes.c */
 
 void	pipes_activation(t_vars *vars, int num_pipes);
+void	close_all_pipes(t_vars *vars);
 int		child_process(t_vars *vars, char *cmd, int iter);
 void	redirection(t_vars *vars, char *cmd, int iter);
 

@@ -1,4 +1,4 @@
-./pipex infile.txt "ls -l" "wc -l" outfile.txt
+pipex infile.txt "ls -l" "wc -l"
 this is merely a small test anyway
 
 line 3
