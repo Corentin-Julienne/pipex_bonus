@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/10 18:00:37 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/16 12:55:08 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,38 +40,41 @@ typedef struct s_vars
 	int		cmds_used;
 }			t_vars;
 
-/* errors.c */
+/* child_process_bonus.c */
+
+int		child_process(t_vars *vars, char *cmd, int iter);
+
+/* errors_bonus.c */
 
 void	display_err_msg(char *err_msg);
 
-/* free.c */
+/* exec_bonus.c */
+
+int		cmd_exec(t_vars *vars, char *cmd);
+
+/* free_bonus.c */
 
 void	cleaner(t_vars *vars, char *err);
 void	free_split(char **split);
 void	free_problem_split(char **split, int i);
 void	close_in_and_out(int fd_in, int fd_out);
 
-/* init_struct.c */
+/* init_struct_bonus.c */
 
 void	init_struct(t_vars *vars, char **av, char **env);
 
-/* paths.c */
+/* paths_bonus.c */
 
 char	**paths_with_slash(t_vars *vars);
 char	**recup_paths(t_vars *vars);
 
-/* pipes.c */
+/* pipes_bonus.c */
 
 void	pipes_activation(t_vars *vars, int num_pipes);
 void	close_all_pipes(t_vars *vars);
-int		child_process(t_vars *vars, char *cmd, int iter);
+
+/* redir_bonus.c */
+
 void	redirection(t_vars *vars, char *cmd, int iter);
-
-/* pipex.c */
-
-int		cmd_exec(t_vars *vars, char *cmd);
-int		handle_fds(t_vars *vars);
-void	file_opener(t_vars *vars, int type);
-void	pipex(t_vars *vars);
 
 #endif

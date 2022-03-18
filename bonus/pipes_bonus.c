@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipes.c                                            :+:      :+:    :+:   */
+/*   pipes_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 10:55:41 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/10 17:15:14 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/16 13:48:56 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,3 @@ void	close_all_pipes(t_vars *vars)
 		i++;
 	}
 }
-
-// void	close_useless_pipes(t_vars *vars, int iter)
-// {
-// 	int		i;
-
-// 	i = 0;
-// 	while (i < vars->num_of_pipes)
-// 	{
-// 		if (i != (iter - 1))
-// 		{
-// 			if (close(vars->pipes[i][0]) == -1)
-// 				perror("pipex");
-// 		}
-// 		if (iter != i)
-// 		{
-// 			if (close(vars->pipes[i][1]) == -1)
-// 				perror("pipex");
-// 		}
-// 		i++;
-// 	}
-// }

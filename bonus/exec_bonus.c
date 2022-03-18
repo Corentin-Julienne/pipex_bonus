@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 14:56:51 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/10 15:24:32 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/16 13:49:04 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*join_cmd_to_path(t_vars *vars, char **cmd_args, int i)
 	return (path);
 }
 
-int	cmd_exec(t_vars *vars, char *cmd) // add a free tool for children
+int	cmd_exec(t_vars *vars, char *cmd)
 {
 	char		**cmd_args;
 	char		*path_with_cmd;

@@ -6,11 +6,25 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:40:38 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/08 15:50:24 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/18 16:59:28 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+static void	init_pids_arr(t_vars *vars)
+{
+	pid_t	*pids;
+
+	pids = (pid_t *)malloc(sizeof(pid_t) * 2);
+	if (!pids)
+	{
+		cleaner(vars);
+		ft_putstr_fd("pipex : unsuccesful memory allocation", STDERR_FILENO);
+		exit(EXIT_FAILURE);
+	}
+	vars->pids = pids;
+}
 
 void	init_struct(t_vars *vars, char **av, char **env)
 {
@@ -20,7 +34,8 @@ void	init_struct(t_vars *vars, char **av, char **env)
 	vars->paths = recup_paths(vars);
 	vars->new_paths = paths_with_slash(vars);
 	vars->pipes = NULL;
-	vars->pids_arr = NULL;
+	vars->pids = NULL;
 	vars->fd_in = -1;
 	vars->fd_out = -1;
+	init_pids_arr(vars);
 }

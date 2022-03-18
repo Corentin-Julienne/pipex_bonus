@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/10 18:08:57 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:58:36 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex_bonus.h"
 
-void	file_opener(t_vars *vars, int type)
+static void	file_opener(t_vars *vars, int type, int ac)
 {	
 	if (type == IN)
 	{
@@ -24,10 +24,10 @@ void	file_opener(t_vars *vars, int type)
 		vars->fd_in = open(vars->av[1], O_RDONLY);
 	}
 	else
-		vars->fd_out = open(vars->av[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
+		vars->fd_out = open(vars->av[ac - 1], O_RDWR | O_CREAT | O_TRUNC, 0644);
 }
 
-void	waiting_for_children(t_vars *vars)
+static void	waiting_for_children(t_vars *vars)
 {
 	int		i;
 
@@ -39,7 +39,7 @@ void	waiting_for_children(t_vars *vars)
 	}
 }
 
-void	pipex(t_vars *vars)
+static void	pipex(t_vars *vars)
 {	
 	pipes_activation(vars, vars->num_of_pipes);
 	vars->cmds_used = 0;
@@ -48,21 +48,22 @@ void	pipex(t_vars *vars)
 		redirection(vars, vars->av[vars->cmds_used + 2], vars->cmds_used);
 		vars->cmds_used++;
 	}
-	waiting_for_children(vars); // ?
+	close_all_pipes(vars);
+	waiting_for_children(vars);
 	free(vars->new_paths);
 	free(vars);
 }
 
-int	handle_fds(t_vars *vars)
+static int	handle_fds(t_vars *vars, int ac)
 {
-	file_opener(vars, IN);
+	file_opener(vars, IN, ac);
 	if (vars->fd_in == -1)
 	{
 		free(vars->new_paths);
 		free(vars);
 		display_err_msg("open");
 	}
-	file_opener(vars, OUT);
+	file_opener(vars, OUT, ac);
 	if (vars->fd_out == -1)
 	{
 		free(vars->new_paths);
@@ -89,5 +90,5 @@ int	main(int ac, char **av, char **env)
 		display_err_msg("malloc alloc failure");
 	vars->num_of_pipes = ac - 4;
 	init_struct(vars, av, env);
-	return (handle_fds(vars));
+	return (handle_fds(vars, ac));
 }

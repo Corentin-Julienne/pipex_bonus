@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redir.c                                            :+:      :+:    :+:   */
+/*   redir_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:42:32 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/10 18:08:38 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/16 18:42:35 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	init_pids_arr(t_vars *vars)
 {
 	pid_t	*pids;
 
-	pids = (pid_t *)malloc(sizeof(pid_t) * vars->num_of_pipes);
+	pids = (pid_t *)malloc(sizeof(pid_t) * vars->num_cmds); // change after vars->num_of_pipes
 	if (!pids)
 		perror("malloc error");
 	vars->pids = pids;

@@ -1,4 +1,11 @@
-pipex infile.txt "ls -l" "wc -l"
-this is merely a small test anyway
-
-line 3
+total 248
+-rw-r--r--    1 corentin  staff   2403 Mar 16 13:42 Makefile
+drwxr-xr-x   20 corentin  staff    640 Mar 16 18:26 bonus
+drwxr-xr-x    4 corentin  staff    128 Mar  8 19:09 includes
+-rw-r--r--    1 corentin  staff      0 Mar 16 18:27 infile.txt
+drwxr-xr-x  113 corentin  staff   3616 Mar 16 18:21 libft
+-rw-r--r--    1 corentin  staff  61992 Mar 16 18:26 libft.a
+-rw-r--r--    1 corentin  staff      0 Mar 16 18:26 outfile.txt
+-rw-r--r--    1 corentin  staff      1 Mar  9 12:54 outfile2.txt
+-rwxr-xr-x    1 corentin  staff  51680 Mar 16 18:26 pipex_bonus
+drwxr-xr-x   10 corentin  staff    320 Mar 16 18:15 srcs

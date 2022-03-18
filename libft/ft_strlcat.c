@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 13:01:05 by cjulienn          #+#    #+#             */
-/*   Updated: 2021/08/23 19:46:25 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/16 12:19:10 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,7 @@ static size_t	ft_count_size_dest(char *dst, size_t n)
 static size_t	ft_total_counter(char *dst, const char *src, size_t n)
 {
 	size_t		res;
-	char		*d;
-	const char	*s;
 
-	s = (const char *)src;
-	d = (char *)dst;
 	res = ft_strlen(src) + ft_count_size_dest(dst, n);
 	if (n < ft_count_size_dest(dst, n))
 		res = ft_strlen(src) + n;

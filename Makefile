@@ -6,29 +6,30 @@
 #    By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/23 17:55:02 by cjulienn          #+#    #+#              #
-#    Updated: 2022/03/10 16:30:36 by cjulienn         ###   ########.fr        #
+#    Updated: 2022/03/18 17:00:06 by cjulienn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
 BONUS_NAME = pipex_bonus
 
-SRCS = ./srcs/errors.c \
-	   ./srcs/free.c \
-	   ./srcs/init_structs.c \
-	   ./srcs/paths.c \
-	   ./srcs/pipes.c \
-	   ./srcs/pipex.c
+SRCS = ./srcs/child_process.c \
+		./srcs/exec.c \
+		./srcs/free.c \
+		./srcs/init_structs.c \
+		./srcs/paths.c \
+		./srcs/pipex.c \
+		./srcs/redir.c
 
-BONUS_SRCS = ./bonus/pipex.c \
-			 ./bonus/child_process.c \
-			 ./bonus/errors.c \
-			 ./bonus/exec.c \
-			 ./bonus/free.c \
-			 ./bonus/init_structs.c \
-			 ./bonus/paths.c \
-			 ./bonus/pipes.c \
-			 ./bonus/redir.c
+BONUS_SRCS = ./bonus/child_process_bonus.c \
+			 ./bonus/errors_bonus.c \
+			 ./bonus/exec_bonus.c \
+			 ./bonus/free_bonus.c \
+			 ./bonus/init_structs_bonus.c \
+			 ./bonus/paths_bonus.c \
+			 ./bonus/pipes_bonus.c \
+			 ./bonus/pipex_bonus.c \
+			 ./bonus/redir_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
