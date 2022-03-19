@@ -6,16 +6,16 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/18 17:33:04 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/19 18:13:44 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static void	track_leaks(void) // kill after
-{
-	system("leaks pipex");
-}
+// static void	track_leaks(void) // kill after
+// {
+// 	system("leaks pipex");
+// }
 
 static void	file_opener(t_vars *vars, int type)
 {	
@@ -23,7 +23,7 @@ static void	file_opener(t_vars *vars, int type)
 	{
 		if (access(vars->av[1], F_OK) != 0)
 		{
-			perror("pipex");
+			perror("pipex 3");
 			cleaner(vars);
 			exit(EXIT_FAILURE);
 		}
@@ -39,7 +39,7 @@ static void	pipex(t_vars *vars)
 	
 	if (pipe(pipeline) == -1)
 	{
-		perror("pipex");
+		perror("pipex 4");
 		cleaner(vars);
 		exit(EXIT_FAILURE);
 	}
@@ -55,14 +55,14 @@ static int	handle_fds(t_vars *vars)
 	file_opener(vars, IN);
 	if (vars->fd_in == -1)
 	{
-		perror("pipex");
+		perror("pipex 5");
 		cleaner(vars);
 		exit(EXIT_FAILURE);
 	}
 	file_opener(vars, OUT);
 	if (vars->fd_out == -1)
 	{
-		perror("pipex");
+		perror("pipex 6");
 		cleaner(vars);
 		exit(EXIT_FAILURE);
 	}
@@ -74,7 +74,7 @@ int	main(int ac, char **av, char **env)
 {
 	t_vars	*vars;
 
-	atexit(&track_leaks);
+	// atexit(&track_leaks); // suppress after use
 	if (ac != 5)
 	{
 		ft_putstr_fd("pipex : wrong number of arguments\n", STDERR_FILENO);

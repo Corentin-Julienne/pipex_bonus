@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/18 16:59:58 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/19 17:15:15 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@
 # define IN		0
 # define OUT	1
 
-# define FIRST	0
-# define SECOND	1
-
 typedef struct s_vars
 {
 	int		i;
@@ -36,7 +33,8 @@ typedef struct s_vars
 	int		fd_in;
 	int		fd_out;
 	int		*pipes;
-	pid_t	*pids;	
+	pid_t	*pids;
+	int		rtn_code;
 }			t_vars;
 
 /* child_process.c */
