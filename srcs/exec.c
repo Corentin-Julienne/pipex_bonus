@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:28:30 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/18 17:20:19 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/23 16:23:41 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	cmd_exec(t_vars *vars, char *cmd)
 		vars->i++;
 	}
 	free_split(cmd_args);
-	ft_putstr_fd("pipex : command not found\n", STDERR_FILENO);
+	ft_putstr_fd("pipex: command not found:\n", STDERR_FILENO);
 	exit(EXIT_FAILURE);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/19 17:15:15 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/23 14:57:19 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	pipes_activation(t_vars *vars, int num_pipes);
 
 /* redir.c */
 
+int		wait_process_and_exit_status(t_vars *vars, int iter);
 void	redirection(t_vars *vars, char *cmd, int iter);
 
 #endif

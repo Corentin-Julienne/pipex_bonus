@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/19 18:13:44 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/23 17:30:43 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,10 @@ static void	file_opener(t_vars *vars, int type)
 		vars->fd_out = open(vars->av[4], O_RDWR | O_CREAT | O_TRUNC, 0644);
 }
 
-static void	pipex(t_vars *vars)
+static int	pipex(t_vars *vars)
 {
 	int			pipeline[2];
+	int			rtn_code;
 	
 	if (pipe(pipeline) == -1)
 	{
@@ -46,12 +47,23 @@ static void	pipex(t_vars *vars)
 	vars->pipes = pipeline;
 	redirection(vars, vars->av[2], 0);
 	redirection(vars, vars->av[3], 1);
+	close(pipeline[0]);
+	close(pipeline[1]);
+	vars->rtn_code = wait_process_and_exit_status(vars, 0);
+	rtn_code = vars->rtn_code;
+	printf("rtn code : %d\n", rtn_code);
+	vars->rtn_code = wait_process_and_exit_status(vars, 1);
+	rtn_code = vars->rtn_code;
+	printf("rtn code : %d\n", rtn_code);
 	close_in_and_out(vars->fd_in, vars->fd_out);
 	cleaner(vars);
+	return (rtn_code);
 }
 
 static int	handle_fds(t_vars *vars)
 {
+	int			rtn_code;
+	
 	file_opener(vars, IN);
 	if (vars->fd_in == -1)
 	{
@@ -66,8 +78,8 @@ static int	handle_fds(t_vars *vars)
 		cleaner(vars);
 		exit(EXIT_FAILURE);
 	}
-	pipex(vars);
-	return (0);
+	rtn_code = pipex(vars);
+	return (rtn_code);
 }
 
 int	main(int ac, char **av, char **env)
