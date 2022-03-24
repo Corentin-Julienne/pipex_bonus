@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:55:15 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/18 17:06:08 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/24 13:57:30 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	handle_slashes_prbl(t_vars *vars, char **paths_v2)
 {
 	free_problem_split(paths_v2, vars->i);
 	free_split(vars->paths);
-	free(vars->pids);
 	close_in_and_out(vars->fd_in, vars->fd_out);
 	free(vars);
 	ft_putstr_fd("pipex : unsuccesful memory allocation\n", STDERR_FILENO);
@@ -49,7 +48,8 @@ char	**paths_with_slash(t_vars *vars)
 	paths_v2 = (char **)malloc(sizeof(char *) * (arr_len + 1));
 	if (!paths_v2)
 	{
-		cleaner(vars);
+		free_split(vars->paths);
+		free(vars);
 		ft_putstr_fd("pipex : unsuccesful memory allocation\n", STDERR_FILENO);
 		exit(EXIT_FAILURE);
 	}

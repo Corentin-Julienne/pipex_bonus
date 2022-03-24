@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:52:54 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/19 17:23:16 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/24 14:42:28 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_split(char **split)
 void	free_problem_split(char **split, int i)
 {
 	int		j;
-	
+
 	j = 0;
 	while (j < i)
 	{

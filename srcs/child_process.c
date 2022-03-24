@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:27:00 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/18 17:24:29 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/24 14:42:57 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	first_redir(t_vars *vars)
 		perror("pipex");
 }
 
-static void last_redir(t_vars *vars)
+static void	last_redir(t_vars *vars)
 {
 	if (dup2(vars->pipes[0], STDIN_FILENO) == -1)
 		perror("pipex");
@@ -45,24 +45,14 @@ int	child_process(t_vars *vars, char *cmd, int iter)
 	if (iter == 0)
 	{
 		if (close(vars->pipes[0]) == -1)
-			perror("pipex"); // error handling
+			perror("pipex");
 	}
 	else
 	{
 		if (close(vars->pipes[1]) == -1)
-			perror("pipex"); // error handling
+			perror("pipex");
 	}
 	smart_dup2(vars, iter);
-	if (iter == 0)
-	{
-		if (close(vars->pipes[1]) == -1)
-			perror("pipex"); // error handling
-	}
-	else
-	{
-		if (close(vars->pipes[0]) == -1)
-			perror("pipex"); // error handling
-	}
 	cmd_exec(vars, cmd);
 	return (0);
 }

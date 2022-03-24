@@ -6,16 +6,11 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/23 17:30:43 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/24 14:42:43 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
-
-// static void	track_leaks(void) // kill after
-// {
-// 	system("leaks pipex");
-// }
 
 static void	file_opener(t_vars *vars, int type)
 {	
@@ -37,24 +32,24 @@ static int	pipex(t_vars *vars)
 {
 	int			pipeline[2];
 	int			rtn_code;
-	
+
 	if (pipe(pipeline) == -1)
 	{
-		perror("pipex 4");
+		perror("pipex");
 		cleaner(vars);
 		exit(EXIT_FAILURE);
 	}
 	vars->pipes = pipeline;
 	redirection(vars, vars->av[2], 0);
 	redirection(vars, vars->av[3], 1);
-	close(pipeline[0]);
-	close(pipeline[1]);
+	if (close(pipeline[0]) == -1)
+		perror("pipex");
+	if (close(pipeline[1]) == -1)
+		perror("pipex");
 	vars->rtn_code = wait_process_and_exit_status(vars, 0);
 	rtn_code = vars->rtn_code;
-	printf("rtn code : %d\n", rtn_code);
 	vars->rtn_code = wait_process_and_exit_status(vars, 1);
 	rtn_code = vars->rtn_code;
-	printf("rtn code : %d\n", rtn_code);
 	close_in_and_out(vars->fd_in, vars->fd_out);
 	cleaner(vars);
 	return (rtn_code);
@@ -63,18 +58,18 @@ static int	pipex(t_vars *vars)
 static int	handle_fds(t_vars *vars)
 {
 	int			rtn_code;
-	
+
 	file_opener(vars, IN);
 	if (vars->fd_in == -1)
 	{
-		perror("pipex 5");
+		perror("pipex");
 		cleaner(vars);
 		exit(EXIT_FAILURE);
 	}
 	file_opener(vars, OUT);
 	if (vars->fd_out == -1)
 	{
-		perror("pipex 6");
+		perror("pipex");
 		cleaner(vars);
 		exit(EXIT_FAILURE);
 	}
@@ -86,7 +81,6 @@ int	main(int ac, char **av, char **env)
 {
 	t_vars	*vars;
 
-	// atexit(&track_leaks); // suppress after use
 	if (ac != 5)
 	{
 		ft_putstr_fd("pipex : wrong number of arguments\n", STDERR_FILENO);
