@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/24 14:42:43 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/24 15:20:55 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static int	pipex(t_vars *vars)
 	rtn_code = vars->rtn_code;
 	vars->rtn_code = wait_process_and_exit_status(vars, 1);
 	rtn_code = vars->rtn_code;
-	close_in_and_out(vars->fd_in, vars->fd_out);
 	cleaner(vars);
 	return (rtn_code);
 }

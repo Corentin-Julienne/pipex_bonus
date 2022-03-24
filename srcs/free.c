@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:52:54 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/24 14:42:28 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/24 14:54:19 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	close_in_and_out(int fd_in, int fd_out)
 	if (fd_in != -1)
 	{
 		if (close(fd_in) == -1)
-			perror("pipex 1");
+			perror("pipex fd_in");
 	}
 	if (fd_out != -1)
 	{
 		if (close(fd_out) == -1)
-			perror("pipex 2");
+			perror("pipex fd_out");
 	}
 }

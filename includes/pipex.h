@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/23 14:57:19 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/24 12:36:46 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int		child_process(t_vars *vars, char *cmd, int iter);
 
 /* exec.c */
 
-int		cmd_exec(t_vars *vars, char *cmd);
+void	cmd_exec(t_vars *vars, char *cmd);
 
 /* free.c */
 
