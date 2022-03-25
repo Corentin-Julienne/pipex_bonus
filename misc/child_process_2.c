@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:27:00 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/25 17:16:20 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:15:14 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,18 @@
 
 static void	first_redir(t_vars *vars)
 {
-	if (dup2(vars->pipes[1], STDOUT_FILENO) == -1)
-	{
-		child_cleaner(vars);
-		perror("pipex");
-		exit(EXIT_FAILURE);
-	}
-	if (close(vars->pipes[1]) == -1)
-		perror("pipex");
 	if (dup2(vars->fd_in, STDIN_FILENO) == -1)
 	{
 		child_cleaner(vars);
 		perror("pipex");
 		exit(EXIT_FAILURE);
 	}
-	if (close(vars->fd_in) == -1)
+	if (dup2(vars->pipes[1], STDOUT_FILENO) == -1)
+	{
+		child_cleaner(vars);
 		perror("pipex");
+		exit(EXIT_FAILURE);
+	}
 }
 
 static void	last_redir(t_vars *vars)
@@ -40,16 +36,12 @@ static void	last_redir(t_vars *vars)
 		perror("pipex");
 		exit(EXIT_FAILURE);
 	}
-	if (close(vars->pipes[0]) == -1)
-		perror("pipex");
 	if (dup2(vars->fd_out, STDOUT_FILENO) == -1)
 	{
 		child_cleaner(vars);
 		perror("pipex");
 		exit(EXIT_FAILURE);
 	}
-	if (close(vars->fd_out) == -1)
-		perror("pipex");
 }
 
 static void	smart_dup2(t_vars *vars, int iter)

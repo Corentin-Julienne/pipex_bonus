@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:28:30 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/25 15:42:15 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/25 15:06:50 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	handle_access_denied(char *path_with_cmd,
 	perror("pipex");
 	free_split(cmd_args);
 	free(path_with_cmd);
-	cleaner(vars);
+	child_cleaner(vars);
 	exit(126);
 }
 
@@ -50,7 +50,7 @@ static char	*join_cmd_to_path(t_vars *vars, char **cmd_args, int i)
 	path = ft_strjoin(vars->new_paths[i], cmd_args[0]);
 	if (!path)
 	{
-		cleaner(vars);
+		child_cleaner(vars);
 		free_split(cmd_args);
 		exit(EXIT_FAILURE);
 	}
@@ -75,7 +75,7 @@ static void	display_cmd_not_found(char **cmd_args)
 
 /* cmd_exec is executed only within child processes */
 
-void	cmd_exec(t_vars *vars, char *cmd)
+int	cmd_exec(t_vars *vars, char *cmd)
 {
 	char		**cmd_args;
 	char		*path_with_cmd;
@@ -83,7 +83,7 @@ void	cmd_exec(t_vars *vars, char *cmd)
 	cmd_args = ft_split(cmd, ' ');
 	if (!cmd_args)
 	{
-		cleaner(vars);
+		child_cleaner(vars);
 		exit(EXIT_FAILURE);
 	}
 	vars->i = 0;
@@ -98,5 +98,5 @@ void	cmd_exec(t_vars *vars, char *cmd)
 	display_cmd_not_found(cmd_args);
 	free_split(cmd_args);
 	child_cleaner(vars);
-	exit(127);
+	return (127);
 }

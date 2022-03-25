@@ -6,11 +6,17 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 13:31:34 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/24 15:20:55 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/25 15:09:29 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+// void	leaks_killer(void)
+// {
+// 	system("leaks pipex");
+// 	exit(EXIT_FAILURE);
+// }
 
 static void	file_opener(t_vars *vars, int type)
 {	
@@ -18,7 +24,7 @@ static void	file_opener(t_vars *vars, int type)
 	{
 		if (access(vars->av[1], F_OK) != 0)
 		{
-			perror("pipex 3");
+			perror("pipex");
 			cleaner(vars);
 			exit(EXIT_FAILURE);
 		}
@@ -47,7 +53,6 @@ static int	pipex(t_vars *vars)
 	if (close(pipeline[1]) == -1)
 		perror("pipex");
 	vars->rtn_code = wait_process_and_exit_status(vars, 0);
-	rtn_code = vars->rtn_code;
 	vars->rtn_code = wait_process_and_exit_status(vars, 1);
 	rtn_code = vars->rtn_code;
 	cleaner(vars);

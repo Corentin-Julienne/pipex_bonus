@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:52:54 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/24 14:54:19 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/25 14:35:30 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,13 @@ void	cleaner(t_vars *vars)
 	if (vars->pids != NULL)
 		free(vars->pids);
 	close_in_and_out(vars->fd_in, vars->fd_out);
+	free(vars);
+}
+
+void	child_cleaner(t_vars *vars)
+{
+	free_split(vars->new_paths);
+	free(vars->pids);
 	free(vars);
 }
 

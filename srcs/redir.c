@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/16 12:32:11 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/24 14:42:11 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/25 15:38:09 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,13 @@ int	wait_process_and_exit_status(t_vars *vars, int iter)
 	int		rtn_code;
 
 	rtn_code = -1;
-	waitpid(vars->pids[iter], &waitpid_status, 0);
-	if (WIFEXITED(waitpid_status))
+	if (waitpid(vars->pids[iter], &waitpid_status, 0) == -1)
+	{
+		cleaner(vars);
+		perror("pipex");
+		exit(EXIT_FAILURE);
+	}
+	if (WIFEXITED(waitpid_status) && iter == 1)
 		rtn_code = WEXITSTATUS(waitpid_status);
 	return (rtn_code);
 }

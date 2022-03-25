@@ -6,13 +6,13 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:55:15 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/24 13:57:30 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/24 17:00:44 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static void	handle_slashes_prbl(t_vars *vars, char **paths_v2)
+static void	handle_slashes_prbl(t_vars *vars, char **paths_v2) // pb with fds
 {
 	free_problem_split(paths_v2, vars->i);
 	free_split(vars->paths);
@@ -24,12 +24,21 @@ static void	handle_slashes_prbl(t_vars *vars, char **paths_v2)
 
 static void	add_slashes(t_vars *vars, char **paths_v2)
 {
+	char	*tmp;
+	
 	while (vars->paths[vars->i])
 	{
 		paths_v2[vars->i] = ft_strdup(vars->paths[vars->i]);
 		if (!paths_v2[vars->i])
 			handle_slashes_prbl(vars, paths_v2);
-		paths_v2[vars->i] = ft_strjoin_and_free(paths_v2[vars->i], "/");
+		tmp = ft_strjoin(paths_v2[vars->i], "/");
+		if (!tmp)
+		{
+			free(paths_v2[vars->i]);
+			handle_slashes_prbl(vars, paths_v2);
+		}
+		free(paths_v2[vars->i]);
+		paths_v2[vars->i] = tmp;
 		if (!paths_v2[vars->i])
 			handle_slashes_prbl(vars, paths_v2);
 		vars->i++;
