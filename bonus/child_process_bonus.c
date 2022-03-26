@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 15:40:57 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/16 18:55:38 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/26 14:58:36 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,38 @@
 
 static void	first_redir(t_vars *vars)
 {
-	if (dup2(vars->fd_in, STDIN_FILENO) == -1)
-		perror("dup2 - 1");
 	if (dup2(vars->pipes[1], STDOUT_FILENO) == -1)
-		perror("dup2 - 2");
+	{
+		child_cleaner(vars);
+		perror("pipex");
+		exit(EXIT_FAILURE);
+	}
+	if (dup2(vars->fd_in, STDIN_FILENO) == -1)
+	{
+		child_cleaner(vars);
+		perror("pipex");
+		exit(EXIT_FAILURE);
+	}
 	if (close(vars->fd_in) == -1)
-		perror("dup2 - 3");
+		perror("pipex");
 }
 
-static void last_redir(t_vars *vars, int iter)
+static void	last_redir(t_vars *vars, int iter)
 {
-	if (dup2(vars->fd_out, STDOUT_FILENO) == -1)
-		perror("dup2");
 	if (dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO) == -1)
-		perror("dup2");
+	{
+		child_cleaner(vars);
+		perror("pipex");
+		exit(EXIT_FAILURE);
+	}
+	if (dup2(vars->fd_out, STDOUT_FILENO) == -1)
+	{
+		child_cleaner(vars);
+		perror("pipex");
+		exit(EXIT_FAILURE);
+	}
 	if (close(vars->fd_out) == -1)
-		perror("close");
+		perror("pipex");
 }
 
 static void	smart_dup2(t_vars *vars, int iter)
@@ -41,9 +57,17 @@ static void	smart_dup2(t_vars *vars, int iter)
 	else
 	{
 		if (dup2(vars->pipes[(iter * 2) - 2], STDIN_FILENO) == -1)
-			perror("dup2 - 3");
+		{
+		child_cleaner(vars);
+		perror("pipex");
+		exit(EXIT_FAILURE);
+		}
 		if (dup2(vars->pipes[(iter * 2) + 1], STDOUT_FILENO) == -1)
-			perror("dup2 - 4");
+		{
+		child_cleaner(vars);
+		perror("pipex");
+		exit(EXIT_FAILURE);
+		}
 	}
 }
 
@@ -72,7 +96,7 @@ void	close_useless_pipes(t_vars *vars, int iter)
 	}
 }
 
-int	child_process(t_vars *vars, char *cmd, int iter) // check if this works
+int	child_process(t_vars *vars, char *cmd, int iter)
 {
 	close_useless_pipes(vars, iter);
 	smart_dup2(vars, iter);

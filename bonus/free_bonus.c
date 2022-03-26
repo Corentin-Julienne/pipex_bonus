@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   free_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/05 14:52:54 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/09 10:14:37 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/26 14:21:01 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,20 @@
 
 /* use cleaner function in case of pb and free vars completely and close fds */
 
-void	cleaner(t_vars *vars, char *err)
+void	cleaner(t_vars *vars)
 {
-	free(vars->new_paths);
-	if (vars->pipes != NULL)
-		free(vars->pipes);
+	free_split(vars->new_paths);
+	if (vars->pids != NULL)
+		free(vars->pids);
 	close_in_and_out(vars->fd_in, vars->fd_out);
 	free(vars);
-	display_err_msg(err);
+}
+
+void	child_cleaner(t_vars *vars)
+{
+	free_split(vars->new_paths);
+	free(vars->pids);
+	free(vars);
 }
 
 void	free_split(char **split)
@@ -40,7 +46,7 @@ void	free_split(char **split)
 void	free_problem_split(char **split, int i)
 {
 	int		j;
-	
+
 	j = 0;
 	while (j < i)
 	{
@@ -51,19 +57,15 @@ void	free_problem_split(char **split, int i)
 }
 
 void	close_in_and_out(int fd_in, int fd_out)
-{
-	int		fd_in_fdback;
-	int		fd_out_fdback;
-	
-	fd_in_fdback = close(fd_in);
-	fd_out_fdback = close(fd_out);
-	if (fd_in_fdback == -1)
-		ft_putstr_fd("Error : input fd could not be closed\n", 2);
-	if (fd_out_fdback == -1)
-		ft_putstr_fd("Error : output fd could not be closed\n", 2);
+{	
+	if (fd_in != -1)
+	{
+		if (close(fd_in) == -1)
+			perror("pipex fd_in");
+	}
+	if (fd_out != -1)
+	{
+		if (close(fd_out) == -1)
+			perror("pipex fd_out");
+	}
 }
-
-// void	close_pipes(t_vars *vars)
-// {
-	
-// }

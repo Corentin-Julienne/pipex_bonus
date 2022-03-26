@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/16 12:55:08 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/26 15:16:23 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,21 @@ typedef struct s_vars
 	int		num_of_pipes;
 	int		num_cmds;
 	int		cmds_used;
+	int		rtn_code;
 }			t_vars;
 
 /* child_process_bonus.c */
 
 int		child_process(t_vars *vars, char *cmd, int iter);
 
-/* errors_bonus.c */
-
-void	display_err_msg(char *err_msg);
-
 /* exec_bonus.c */
 
-int		cmd_exec(t_vars *vars, char *cmd);
+void	cmd_exec(t_vars *vars, char *cmd);
 
 /* free_bonus.c */
 
-void	cleaner(t_vars *vars, char *err);
+void	cleaner(t_vars *vars);
+void	child_cleaner(t_vars *vars);
 void	free_split(char **split);
 void	free_problem_split(char **split, int i);
 void	close_in_and_out(int fd_in, int fd_out);
@@ -75,6 +73,7 @@ void	close_all_pipes(t_vars *vars);
 
 /* redir_bonus.c */
 
+int		wait_process_and_exit_status(t_vars *vars, int iter);
 void	redirection(t_vars *vars, char *cmd, int iter);
 
 #endif

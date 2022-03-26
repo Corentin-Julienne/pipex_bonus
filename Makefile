@@ -6,12 +6,12 @@
 #    By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/23 17:55:02 by cjulienn          #+#    #+#              #
-#    Updated: 2022/03/18 17:00:06 by cjulienn         ###   ########.fr        #
+#    Updated: 2022/03/26 15:19:05 by cjulienn         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = pipex
-BONUS_NAME = pipex_bonus
+BONUS_NAME = pipex
 
 SRCS = ./srcs/child_process.c \
 		./srcs/exec.c \
@@ -22,7 +22,6 @@ SRCS = ./srcs/child_process.c \
 		./srcs/redir.c
 
 BONUS_SRCS = ./bonus/child_process_bonus.c \
-			 ./bonus/errors_bonus.c \
 			 ./bonus/exec_bonus.c \
 			 ./bonus/free_bonus.c \
 			 ./bonus/init_structs_bonus.c \

@@ -6,7 +6,7 @@
 /*   By: cjulienn <cjulienn@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 13:39:06 by cjulienn          #+#    #+#             */
-/*   Updated: 2022/03/25 15:33:26 by cjulienn         ###   ########.fr       */
+/*   Updated: 2022/03/26 14:17:23 by cjulienn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,6 @@ void	pipes_activation(t_vars *vars, int num_pipes);
 int		wait_process_and_exit_status(t_vars *vars, int iter);
 void	redirection(t_vars *vars, char *cmd, int iter);
 
-void	leaks_killer(void);
+void	leaks_killer(void); // kill after
 
 #endif
